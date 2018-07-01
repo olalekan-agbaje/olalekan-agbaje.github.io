@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html ng-app="weatherApp">
+<head lang="en">
+    <meta charset="UTF-8">
+    <script type="text/javascript" src="js/angular.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
+    <title>Compucorp | Weather Reporting</title>
+</head>
+<body ng-cloak>
+<div ng-controller="WeatherController" class="container-fluid col-md-5 col-md-offset-3">
+<div class="panel panel-info">
+    <div class="panel-heading">Compucorp Weather Report</div>
+
+    <div class="panel-body" ng-controller="manualInput">
+
+        <div class="col-lg-12">
+            <div class="input-group input-group-sm">
+                <input type="search" ng-model="searchCriteria" id="searchBox" class="form-control" placeholder="Please enter post code or country name.">
+              <span class="input-group-btn">
+                <button  ng-click="manualSearch()" class="btn btn-primary" id="searchBtn" type="button">Get Current Weather</button>
+              </span>
+            </div>
+        </div>
+
+        <div ng-show="resultFound" class="col-lg-12" id="weatherResults">
+            <h2><span id="weatherInformation">Current Weather in {{locationName}}, {{country.country}} </span><img src="http://openweathermap.org/images/flags/{{country.country | lowercase}}.png"></h2>
+            <h3><img src="http://openweathermap.org/img/w/{{weather.icon}}.png"> {{other.temp}} &deg;C {{weather.main}} ({{weather.description}})</h3>
+            <p ng-model="getDate">Fetched at: {{getDate * 1000 | date:'dd/MM/yyyy HH:mm:ss Z'}}</p>
+
+            <table class="table table-bordered table-striped">
+                <tr>
+                    <td>Wind</td>
+                    <td>Speed {{wind.speed}} m/s, Direction ({{wind.deg}}) degrees</td>
+                </tr>
+
+                <tr>
+                    <td>Clouds (Cloudiness)</td>
+                    <td>{{clouds.all}}%</td>
+                </tr>
+                <tr>
+                    <td>Humidity </td>
+                    <td>{{other.humidity}}%</td>
+                </tr>
+                <tr>
+                    <td>Pressure </td>
+                    <td>{{other.pressure}} hPa</td>
+                </tr>
+                <tr>
+                    <td>Minimum Temperature </td>
+                    <td>{{other.temp_min}} &deg;C</td>
+                </tr>
+                <tr>
+                    <td>Maximum Temperature </td>
+                    <td>{{other.temp_max}} &deg;C</td>
+                </tr>
+                <tr>
+                    <td>Sunrise </td>
+                    <td>{{country.sunrise * 1000 | date:'HH:mm:ss'}}</td>
+                </tr>
+                <tr>
+                    <td>Sunset </td>
+                    <td>{{country.sunset * 1000 | date:'HH:mm:ss'}}</td>
+                </tr>
+                <tr>
+                    <td>Geo Coordinates </td>
+                    <td>Latitude: {{latlong.lat}}, Longitude: {{latlong.lon}}</td>
+                </tr>
+            </table>
+        </div>
+    </div>
+</div>
+</div>
+<script type="text/javascript" src="js/weather_locator.js"></script>
+</body>
+</html>
